@@ -19,6 +19,9 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+    Route::get('/accounts', function () {
+        return Inertia::render('Accounts');
+    })->name('accounts');
 });
 
 require_once __DIR__ . '/jetstream.php';
