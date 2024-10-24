@@ -49,10 +49,10 @@ const logout = () => {
                   Dashboard
                 </NavLink>
                 <NavLink
-                  :href="route('accounts')"
-                  :active="route().current('accounts')"
+                  :href="route('tasks')"
+                  :active="route().current('tasks')"
                 >
-                  Accounts
+                  Tasks
                 </NavLink>
               </div>
             </div>
@@ -60,10 +60,7 @@ const logout = () => {
             <div class="hidden sm:flex sm:items-center sm:ms-6">
               <!-- Settings Dropdown -->
               <div class="ms-3 relative">
-                <Dropdown
-                  align="right"
-                  width="48"
-                >
+                <Dropdown align="right" width="48">
                   <template #trigger>
                     <button
                       v-if="$page.props.jetstream.managesProfilePhotos"
@@ -76,10 +73,7 @@ const logout = () => {
                       />
                     </button>
 
-                    <span
-                      v-else
-                      class="inline-flex rounded-md"
-                    >
+                    <span v-else class="inline-flex rounded-md">
                       <button
                         type="button"
                         class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150"
@@ -187,6 +181,12 @@ const logout = () => {
             >
               Dashboard
             </ResponsiveNavLink>
+            <ResponsiveNavLink
+              :href="route('tasks')"
+              :active="route().current('tasks')"
+            >
+              Tasks
+            </ResponsiveNavLink>
           </div>
 
           <!-- Responsive Settings Options -->
@@ -232,10 +232,7 @@ const logout = () => {
               </ResponsiveNavLink>
 
               <!-- Authentication -->
-              <form
-                method="POST"
-                @submit.prevent="logout"
-              >
+              <form method="POST" @submit.prevent="logout">
                 <ResponsiveNavLink as="button"> Log Out </ResponsiveNavLink>
               </form>
 
@@ -271,10 +268,7 @@ const logout = () => {
       </nav>
 
       <!-- Page Heading -->
-      <header
-        v-if="$slots.header"
-        class="bg-white dark:bg-gray-800 shadow"
-      >
+      <header v-if="$slots.header" class="bg-white dark:bg-gray-800 shadow">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
           <slot name="header"></slot>
         </div>
