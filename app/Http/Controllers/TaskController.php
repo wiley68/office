@@ -11,6 +11,11 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::all();
+        foreach ($tasks as &$task) {
+            if (isset($task['value'])) {
+                $task['value'] = base64_decode($task['value']);
+            }
+        }
         return Inertia::render('Tasks/Index', [
             'tasks' => $tasks
         ]);
@@ -23,6 +28,7 @@ class TaskController extends Controller
             'value' => 'nullable|string',
         ]);
 
+        $validated['value'] = base64_encode($validated['value']);
         Task::create($validated);
 
         return redirect()->back()->with('success', 'Task created successfully.');
@@ -35,6 +41,7 @@ class TaskController extends Controller
             'value' => 'nullable|string',
         ]);
 
+        $validated['value'] = base64_encode($validated['value']);
         $task->update($validated);
 
         return redirect()->back()->with('success', 'Task updated successfully.');
