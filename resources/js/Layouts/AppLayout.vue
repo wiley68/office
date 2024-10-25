@@ -1,5 +1,6 @@
 <script setup>
 import { Head, router } from '@inertiajs/vue3'
+import Header from './Partials/Header.vue'
 import Footer from './Partials/Footer.vue'
 
 defineProps({
@@ -16,15 +17,11 @@ const logout = () => {
     <Head :title="title"></Head>
 
     <div class="flex flex-col min-h-screen">
-      <Footer></Footer>
-      <div class="flex justify-center bg-neutral-50 w-full flex-grow">
+      <Header></Header>
+      <div class="flex justify-center bg-gray-50 w-full flex-grow">
         <slot></slot>
       </div>
-      <div
-        class="flex items-center bg-neutral-100 w-full h-8 border-t border-neutral-200"
-      >
-        111
-      </div>
+      <Footer></Footer>
     </div>
   </div>
 </template>
