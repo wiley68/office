@@ -1,15 +1,11 @@
 <script setup>
-import { Head, router } from '@inertiajs/vue3'
+import { Head } from '@inertiajs/vue3'
 import Header from './Partials/Header.vue'
 import Footer from './Partials/Footer.vue'
 
 defineProps({
   title: String,
 })
-
-const logout = () => {
-  router.post(route('logout'))
-}
 </script>
 
 <template>
