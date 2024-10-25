@@ -10,7 +10,7 @@ const props = defineProps({
 const classes = computed(() => {
   return props.active
     ? 'flex justify-center items-center text-neutral-200 bg-gray-800 rounded-md p-2'
-    : 'flex justify-center items-center text-neutral-200 hover:bg-gray-800 p-2'
+    : 'flex justify-center items-center text-neutral-200 hover:bg-gray-800 p-2 hover:rounded-md'
 })
 </script>
 
