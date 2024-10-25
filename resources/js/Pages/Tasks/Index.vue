@@ -1,9 +1,10 @@
 <script setup>
-import { useForm } from '@inertiajs/vue3'
-import { defineProps, ref } from 'vue'
+import { useForm, Link, router } from '@inertiajs/vue3'
+import { ref } from 'vue'
 import AppLayout from '@/Layouts/AppLayout.vue'
+import ApplicationMark from '@/Components/ApplicationMark.vue'
+import NavLink from '@/Components/NavLink.vue'
 
-// Define Props
 const props = defineProps({
   tasks: Array,
 })
@@ -11,23 +12,19 @@ const props = defineProps({
 const isEditing = ref(false)
 const currentTaskId = ref(null)
 
-// Define form for task creation
 const form = useForm({
   name: '',
   value: '',
 })
 
-// Submit new task
 const submit = () => {
   if (isEditing.value) {
-    // Update task if in editing mode
     form.put(`/tasks/${currentTaskId.value}`, {
-      onSuccess: () => resetForm(), // Reset the form after successful update
+      onSuccess: () => resetForm(),
     })
   } else {
-    // Create new task
     form.post('/tasks', {
-      onSuccess: () => resetForm(), // Reset the form after successful creation
+      onSuccess: () => resetForm(),
     })
   }
 }
@@ -40,60 +37,65 @@ const editTask = (task) => {
 }
 
 const resetForm = () => {
-  form.reset() // Reset form values
+  form.reset()
   currentTaskId.value = null
   isEditing.value = false
 }
 
-// Delete a task
 const deleteTask = (id) => {
   if (confirm('Are you sure you want to delete this task?')) {
     form.delete(`/tasks/${id}`)
   }
 }
+
+const logout = () => {
+  router.post(route('logout'))
+}
 </script>
 
 <template>
   <AppLayout title="Dashboard">
-    <template #header>
-      <h2
-        class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"
-      >
-        Dashboard
-      </h2>
-    </template>
-
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div
           class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg"
         >
+          <Link :href="route('dashboard')">
+            <ApplicationMark class="block h-9 w-auto" />
+          </Link>
+          <NavLink
+            :href="route('dashboard')"
+            :active="route().current('dashboard')"
+          >
+            Dashboard
+          </NavLink>
+          <NavLink
+            :href="route('tasks.index')"
+            :active="route().current('tasks.index')"
+          >
+            Tasks
+          </NavLink>
+          <Link :href="route('profile.show')"> Profile </Link>
+          <Link
+            v-if="$page.props.jetstream.hasApiFeatures"
+            :href="route('api-tokens.index')"
+          >
+            API Tokens
+          </Link>
+          <form @submit.prevent="logout">
+            <button type="submit">Log Out</button>
+          </form>
           <form @submit.prevent="submit">
-            <input
-              v-model="form.name"
-              placeholder="Task name"
-            />
-            <textarea
-              v-model="form.value"
-              placeholder="Task value"
-            ></textarea>
+            <input v-model="form.name" placeholder="Task name" />
+            <textarea v-model="form.value" placeholder="Task value"></textarea>
             <button type="submit">
               {{ isEditing ? 'Update Task' : 'Create Task' }}
             </button>
-            <button
-              v-if="isEditing"
-              @click="resetForm"
-            >
-              Cancel
-            </button>
+            <button v-if="isEditing" @click="resetForm">Cancel</button>
           </form>
 
-          <!-- Task List -->
           <ul>
-            <li
-              v-for="task in tasks"
-              :key="task.id"
-            >
+            <li v-for="task in tasks" :key="task.id">
               <strong>{{ task.name }}</strong> - {{ task.value }}
               <button @click="editTask(task)">Edit</button>
               <button @click="deleteTask(task.id)">Delete</button>
