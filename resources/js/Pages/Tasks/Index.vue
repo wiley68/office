@@ -2,7 +2,6 @@
 import { useForm, Link, router } from '@inertiajs/vue3'
 import { ref } from 'vue'
 import AppLayout from '@/Layouts/AppLayout.vue'
-import ApplicationMark from '@/Components/ApplicationMark.vue'
 import NavLink from '@/Components/NavLink.vue'
 
 const props = defineProps({
@@ -60,9 +59,6 @@ const logout = () => {
         <div
           class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg"
         >
-          <Link :href="route('dashboard')">
-            <ApplicationMark class="block h-9 w-auto" />
-          </Link>
           <NavLink
             :href="route('dashboard')"
             :active="route().current('dashboard')"

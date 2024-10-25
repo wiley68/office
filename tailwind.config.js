@@ -20,6 +20,7 @@ export default {
       colors: {
         customGray: {
           900: '#27282e',
+          800: '#3d3e43',
         },
         customBlue: {
           600: '#087cfa',
