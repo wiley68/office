@@ -49,29 +49,41 @@ const deleteTask = (id) => {
 
 <template>
   <AppLayout title="Dashboard">
-    <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div
-          class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg"
+    <div class="flex flex-1 h-auto p-2 border border-gray-200">
+      <ul>
+        <li
+          v-for="task in tasks"
+          :key="task.id"
         >
-          <form @submit.prevent="submit">
-            <input v-model="form.name" placeholder="Task name" />
-            <textarea v-model="form.value" placeholder="Task value"></textarea>
-            <button type="submit">
-              {{ isEditing ? 'Update Task' : 'Create Task' }}
-            </button>
-            <button v-if="isEditing" @click="resetForm">Cancel</button>
-          </form>
-
-          <ul>
-            <li v-for="task in tasks" :key="task.id">
-              <strong>{{ task.name }}</strong> - {{ task.value }}
-              <button @click="editTask(task)">Edit</button>
-              <button @click="deleteTask(task.id)">Delete</button>
-            </li>
-          </ul>
-        </div>
-      </div>
+          <strong>{{ task.name }}</strong> - {{ task.value }}
+          <button @click="editTask(task)">Edit</button>
+          <button @click="deleteTask(task.id)">Delete</button>
+        </li>
+      </ul>
+    </div>
+    <div class="flex flex-1 h-auto p-2 border border-gray-200">
+      <form
+        class="flex flex-col flex-grow h-full"
+        @submit.prevent="submit"
+      >
+        <input
+          v-model="form.name"
+          placeholder="Task name"
+        />
+        <textarea
+          v-model="form.value"
+          placeholder="Task value"
+        ></textarea>
+        <button type="submit">
+          {{ isEditing ? 'Update Task' : 'Create Task' }}
+        </button>
+        <button
+          v-if="isEditing"
+          @click="resetForm"
+        >
+          Cancel
+        </button>
+      </form>
     </div>
   </AppLayout>
 </template>
