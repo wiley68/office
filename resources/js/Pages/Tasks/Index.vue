@@ -101,12 +101,16 @@ const deleteTask = (id) => {
           placeholder="Task value"
           class="flex flex-grow bg-gray-50 border border-gray-200 rounded"
         ></textarea>
-        <div class="flex flex-none">
-          <button type="submit">
+        <div class="flex flex-none items-center mt-1 gap-2">
+          <button
+            type="submit"
+            class="flex justify-center items-center px-2 py-1 bg-gray-100 hover:bg-gray-200 border border-gray-200 hover:border-gray-300 rounded-md"
+          >
             {{ isEditing ? 'Update Task' : 'Create Task' }}
           </button>
           <button
             v-if="isEditing"
+            class="flex justify-center items-center px-2 py-1 hover:bg-gray-100 hover:border-gray-200 border rounded-md"
             @click="resetForm"
           >
             Cancel
