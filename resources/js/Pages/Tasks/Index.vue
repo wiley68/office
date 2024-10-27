@@ -62,10 +62,10 @@ const deleteTask = (id) => {
         "
       >
         <div
-          class="flex items-center flex-grow"
+          class="flex items-center flex-grow font-medium"
           @click="currentTaskId === task.id ? resetForm() : editTask(task)"
         >
-          <strong>{{ task.name }}</strong>
+          {{ task.name }}
         </div>
         <div class="flex-none">
           <button
@@ -94,7 +94,7 @@ const deleteTask = (id) => {
         <input
           v-model="form.name"
           placeholder="Task name"
-          class="flex items-center flex-none bg-gray-50 border border-gray-200 rounded"
+          class="flex items-center flex-none bg-gray-50 border border-gray-200 rounded font-bold"
         />
         <textarea
           v-model="form.value"
