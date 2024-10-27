@@ -49,19 +49,27 @@ const deleteTask = (id) => {
 
 <template>
   <AppLayout title="Dashboard">
-    <div class="flex flex-1 h-auto p-2 border border-gray-200">
-      <ul>
-        <li
-          v-for="task in tasks"
-          :key="task.id"
-        >
+    <div class="flex flex-col flex-1 h-auto gap-1 p-2">
+      <div
+        v-for="task in tasks"
+        :key="task.id"
+        class="flex items-center w-full border border-gray-200 p-2 cursor-pointer select-none"
+        :class="
+          currentTaskId === task.id
+            ? 'bg-gray-200 border-gray-300'
+            : 'bg-gray-50'
+        "
+        @click="editTask(task)"
+      >
+        <div class="flex items-center flex-grow">
           <strong>{{ task.name }}</strong> - {{ task.value }}
-          <button @click="editTask(task)">Edit</button>
+        </div>
+        <div class="flex-none">
           <button @click="deleteTask(task.id)">Delete</button>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
-    <div class="flex flex-1 h-auto p-2 border border-gray-200">
+    <div class="flex flex-1 h-auto p-2">
       <form
         class="flex flex-col flex-grow h-full"
         @submit.prevent="submit"
