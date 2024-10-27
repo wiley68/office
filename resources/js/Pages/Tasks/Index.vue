@@ -99,7 +99,7 @@ const deleteTask = (id) => {
         <textarea
           v-model="form.value"
           placeholder="Task value"
-          class="flex flex-grow"
+          class="flex flex-grow bg-gray-50 border border-gray-200 rounded"
         ></textarea>
         <div class="flex flex-none">
           <button type="submit">
