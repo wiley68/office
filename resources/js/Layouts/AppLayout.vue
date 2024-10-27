@@ -14,7 +14,9 @@ defineProps({
 
     <div class="flex flex-col min-h-screen">
       <Header></Header>
-      <div class="flex justify-center gap-2 p-2 bg-white w-full flex-grow">
+      <div
+        class="flex justify-center gap-2 p-2 bg-white w-full flex-grow select-none"
+      >
         <slot></slot>
       </div>
       <Footer></Footer>

@@ -88,26 +88,30 @@ const deleteTask = (id) => {
     </div>
     <div class="flex flex-1 h-auto p-2">
       <form
-        class="flex flex-col flex-grow h-full"
+        class="flex flex-col flex-grow h-full gap-1"
         @submit.prevent="submit"
       >
         <input
           v-model="form.name"
           placeholder="Task name"
+          class="flex items-center flex-none bg-gray-50 border border-gray-200 rounded"
         />
         <textarea
           v-model="form.value"
           placeholder="Task value"
+          class="flex flex-grow"
         ></textarea>
-        <button type="submit">
-          {{ isEditing ? 'Update Task' : 'Create Task' }}
-        </button>
-        <button
-          v-if="isEditing"
-          @click="resetForm"
-        >
-          Cancel
-        </button>
+        <div class="flex flex-none">
+          <button type="submit">
+            {{ isEditing ? 'Update Task' : 'Create Task' }}
+          </button>
+          <button
+            v-if="isEditing"
+            @click="resetForm"
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   </AppLayout>
