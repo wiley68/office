@@ -15,7 +15,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+        sans: ['"Exo 2"', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         customGray: {
