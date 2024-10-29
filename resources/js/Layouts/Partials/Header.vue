@@ -10,7 +10,7 @@ const logout = () => {
 
 <template>
   <div
-    class="flex justify-between bg-gray-900 w-full h-10 border-b border-neutral-200 p-1"
+    class="flex justify-between bg-gray-900 w-full h-10 border-b border-neutral-200 p-1 select-none"
   >
     <div class="flex gap-2">
       <Link :href="route('dashboard')">
