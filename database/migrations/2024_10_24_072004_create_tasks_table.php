@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 256);
             $table->text('value')->nullable();
+            $table->unsignedTinyInteger('status')->default(0);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

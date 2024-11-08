@@ -26,6 +26,7 @@ class TaskController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:256',
             'value' => 'nullable|string',
+            'status' => 'required|integer|in:0,1',
         ]);
 
         $validated['value'] = base64_encode($validated['value']);
@@ -39,6 +40,7 @@ class TaskController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:256',
             'value' => 'nullable|string',
+            'status' => 'required|integer|in:0,1',
         ]);
 
         $validated['value'] = base64_encode($validated['value']);
