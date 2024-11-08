@@ -50,7 +50,10 @@ const deleteTask = (id) => {
 
 <template>
   <AppLayout title="Dashboard">
-    <div class="flex flex-col flex-1 h-auto gap-1 p-2">
+    <div
+      class="flex flex-col flex-1 gap-1 p-2 mx-2 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-300"
+      style="height: calc(100vh - 5rem)"
+    >
       <div
         v-for="task in tasks"
         :key="task.id"

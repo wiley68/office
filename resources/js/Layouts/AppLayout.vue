@@ -12,10 +12,10 @@ defineProps({
   <div>
     <Head :title="title"></Head>
 
-    <div class="flex flex-col min-h-screen">
+    <div class="flex flex-col h-screen overflow-hidden">
       <Header></Header>
       <div
-        class="flex justify-center gap-2 px-2 pt-2 bg-white w-full flex-grow select-none"
+        class="flex justify-center gap-2 pt-2 bg-white w-full flex-grow select-none"
       >
         <slot></slot>
       </div>
