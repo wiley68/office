@@ -2,6 +2,7 @@
 import { useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
 import AppLayout from '@/Layouts/AppLayout.vue'
+import StatusToggle from '@/Components/StatusToggle.vue'
 
 const props = defineProps({
   tasks: Array,
@@ -13,6 +14,7 @@ const currentTaskId = ref(null)
 const form = useForm({
   name: '',
   value: '',
+  status: 0,
 })
 
 const submit = () => {
@@ -30,6 +32,7 @@ const submit = () => {
 const editTask = (task) => {
   form.name = task.name
   form.value = task.value
+  form.status = task.status
   currentTaskId.value = task.id
   isEditing.value = true
 }
@@ -51,7 +54,7 @@ const deleteTask = (id) => {
 <template>
   <AppLayout title="Dashboard">
     <div
-      class="flex flex-col flex-1 gap-1 p-2 mx-2 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-300"
+      class="flex flex-col w-1/3 gap-1 p-2 mx-2 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-300"
       style="height: calc(100vh - 5rem)"
     >
       <div
@@ -66,15 +69,15 @@ const deleteTask = (id) => {
       >
         <div
           class="flex items-center flex-grow font-medium"
+          :class="
+            task.status === 0 ? 'text-gray-900' : 'line-through text-gray-400'
+          "
           @click="currentTaskId === task.id ? resetForm() : editTask(task)"
         >
           {{ task.name }}
         </div>
         <div class="flex-none">
-          <button
-            class="px-2 py-1 rounded-md"
-            @click="deleteTask(task.id)"
-          >
+          <button class="px-2 py-1 rounded-md" @click="deleteTask(task.id)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -89,35 +92,48 @@ const deleteTask = (id) => {
         </div>
       </div>
     </div>
-    <div class="flex flex-1 h-auto p-2">
-      <form
-        class="flex flex-col flex-grow h-full gap-1"
-        @submit.prevent="submit"
-      >
-        <input
-          v-model="form.name"
-          placeholder="Task name"
-          class="flex items-center flex-none bg-gray-50 border border-gray-200 rounded font-bold"
-        />
-        <textarea
-          v-model="form.value"
-          placeholder="Task value"
-          class="flex flex-grow bg-gray-50 border border-gray-200 rounded"
-        ></textarea>
-        <div class="flex flex-none items-center mt-1 gap-2">
-          <button
-            type="submit"
-            class="flex justify-center items-center px-2 py-1 bg-gray-100 hover:bg-gray-200 border border-gray-200 hover:border-gray-300 rounded-md"
+    <div class="flex w-2/3 h-auto p-2">
+      <form class="flex flex-grow h-full gap-1" @submit.prevent="submit">
+        <div class="flex flex-col h-full w-2/3 gap-1">
+          <input
+            v-model="form.name"
+            placeholder="Task name"
+            class="flex items-center flex-none bg-gray-50 border border-gray-200 rounded font-bold"
+            :class="
+              form.status === 0 ? 'text-gray-900' : 'line-through text-gray-400'
+            "
+          />
+          <textarea
+            v-model="form.value"
+            placeholder="Task value"
+            class="flex flex-grow bg-gray-50 border border-gray-200 rounded"
+            :class="
+              form.status === 0 ? 'text-gray-900' : 'line-through text-gray-400'
+            "
+          ></textarea>
+          <div class="flex flex-none items-center h-8 mt-1 gap-2">
+            <button
+              type="submit"
+              class="flex justify-center items-center px-2 py-1 bg-gray-100 hover:bg-gray-200 border border-gray-200 hover:border-gray-300 rounded-md"
+            >
+              {{ isEditing ? 'Update Task' : 'Create Task' }}
+            </button>
+            <button
+              v-if="isEditing"
+              class="flex justify-center items-center px-2 py-1 hover:bg-gray-100 hover:border-gray-200 border rounded-md"
+              @click="resetForm"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+        <div class="flex flex-col h-full w-1/3">
+          <div
+            class="flex flex-col flex-grow w-full border border-gray-200 rounded"
           >
-            {{ isEditing ? 'Update Task' : 'Create Task' }}
-          </button>
-          <button
-            v-if="isEditing"
-            class="flex justify-center items-center px-2 py-1 hover:bg-gray-100 hover:border-gray-200 border rounded-md"
-            @click="resetForm"
-          >
-            Cancel
-          </button>
+            <StatusToggle v-model="form.status" />
+          </div>
+          <div class="flex flex-none items-center h-8 mt-1 gap-2"></div>
         </div>
       </form>
     </div>

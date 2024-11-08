@@ -15,7 +15,7 @@ defineProps({
     <div class="flex flex-col h-screen overflow-hidden">
       <Header></Header>
       <div
-        class="flex justify-center gap-2 pt-2 bg-white w-full flex-grow select-none"
+        class="flex justify-center gap-2 pt-2 bg-white w-full flex-grow select-none text-gray-900"
       >
         <slot></slot>
       </div>
