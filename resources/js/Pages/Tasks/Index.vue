@@ -14,7 +14,7 @@ const currentTaskId = ref(null)
 const form = useForm({
   name: '',
   value: '',
-  status: 0,
+  status: false,
 })
 
 const submit = () => {
@@ -32,7 +32,7 @@ const submit = () => {
 const editTask = (task) => {
   form.name = task.name
   form.value = task.value
-  form.status = task.status
+  form.status = task.status ? true : false
   currentTaskId.value = task.id
   isEditing.value = true
 }
@@ -69,9 +69,7 @@ const deleteTask = (id) => {
       >
         <div
           class="flex items-center flex-grow font-medium"
-          :class="
-            task.status === 0 ? 'text-gray-900' : 'line-through text-gray-400'
-          "
+          :class="task.status ? 'line-through text-gray-400' : 'text-gray-900'"
           @click="currentTaskId === task.id ? resetForm() : editTask(task)"
         >
           {{ task.name }}
@@ -100,7 +98,7 @@ const deleteTask = (id) => {
             placeholder="Task name"
             class="flex items-center flex-none bg-gray-50 border border-gray-200 rounded font-bold"
             :class="
-              form.status === 0 ? 'text-gray-900' : 'line-through text-gray-400'
+              form.status ? 'line-through text-gray-400' : 'text-gray-900'
             "
           />
           <textarea
@@ -108,7 +106,7 @@ const deleteTask = (id) => {
             placeholder="Task value"
             class="flex flex-grow bg-gray-50 border border-gray-200 rounded"
             :class="
-              form.status === 0 ? 'text-gray-900' : 'line-through text-gray-400'
+              form.status ? 'line-through text-gray-400' : 'text-gray-900'
             "
           ></textarea>
           <div class="flex flex-none items-center h-8 mt-1 gap-2">
@@ -131,7 +129,7 @@ const deleteTask = (id) => {
           <div
             class="flex flex-col flex-grow w-full border border-gray-200 rounded"
           >
-            <StatusToggle v-model="form.status" />
+            <StatusToggle v-model="form.status" :checked="form.status" />
           </div>
           <div class="flex flex-none items-center h-8 mt-1 gap-2"></div>
         </div>
