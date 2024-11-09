@@ -75,7 +75,10 @@ const deleteTask = (id) => {
           {{ task.name }}
         </div>
         <div class="flex-none">
-          <button class="px-2 py-1 rounded-md" @click="deleteTask(task.id)">
+          <button
+            class="px-2 py-1 rounded-md"
+            @click="deleteTask(task.id)"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -91,7 +94,10 @@ const deleteTask = (id) => {
       </div>
     </div>
     <div class="flex w-2/3 h-auto p-2">
-      <form class="flex flex-grow h-full gap-1" @submit.prevent="submit">
+      <form
+        class="flex flex-grow h-full gap-1"
+        @submit.prevent="submit"
+      >
         <div class="flex flex-col h-full w-2/3 gap-1">
           <input
             v-model="form.name"
@@ -127,9 +133,9 @@ const deleteTask = (id) => {
         </div>
         <div class="flex flex-col h-full w-1/3">
           <div
-            class="flex flex-col flex-grow w-full border border-gray-200 rounded"
+            class="flex flex-col flex-grow w-full border border-gray-200 rounded p-2"
           >
-            <StatusToggle v-model="form.status" :checked="form.status" />
+            <StatusToggle v-model="form.status" />
           </div>
           <div class="flex flex-none items-center h-8 mt-1 gap-2"></div>
         </div>
