@@ -20,11 +20,11 @@ const form = useForm({
 const submit = () => {
   if (isEditing.value) {
     form.put(`/tasks/${currentTaskId.value}`, {
-      onSuccess: () => resetForm(),
+      // onSuccess: () => resetForm(),
     })
   } else {
     form.post('/tasks', {
-      onSuccess: () => resetForm(),
+      // onSuccess: () => resetForm(),
     })
   }
 }
@@ -32,7 +32,7 @@ const submit = () => {
 const editTask = (task) => {
   form.name = task.name
   form.value = task.value
-  form.status = task.status ? true : false
+  form.status = task.status ? 1 : 0
   currentTaskId.value = task.id
   isEditing.value = true
 }
