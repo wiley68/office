@@ -34,7 +34,7 @@ const logout = () => {
         :href="route('profile.show')"
         :active="route().current('profile.show')"
       >
-        Profile
+        {{ $page.props.auth.user.name }}
       </NavLink>
       <form
         class="flex justify-center items-center text-neutral-200 hover:bg-gray-800 p-2 hover:rounded-md"
