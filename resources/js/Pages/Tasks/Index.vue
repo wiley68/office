@@ -1,5 +1,5 @@
 <script setup>
-import { useForm } from '@inertiajs/vue3'
+import { useForm, router } from '@inertiajs/vue3'
 import { ref } from 'vue'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { useNotification } from '@kyvg/vue3-notification'
@@ -44,10 +44,27 @@ const submitTask = () => {
   }
 }
 
+const toggleTaskStatus = (task) => {
+  formTask.name = task.name
+  formTask.value = task.value
+  formTask.status = task.status === 0 ? 1 : 0
+  currentTaskId.value = task.id
+  isEditing.value = true
+  formTask.put(`/tasks/${task.id}`, {
+    onSuccess: () => {
+      notify({
+        title: 'Съобщение',
+        text: 'Успешно променихте статуса на задачата!',
+        type: 'success',
+      })
+    },
+  })
+}
+
 const editTask = (task) => {
   formTask.name = task.name
   formTask.value = task.value
-  formTask.status = task.status ? 1 : 0
+  formTask.status = task.status
   currentTaskId.value = task.id
   isEditing.value = true
 }
@@ -76,6 +93,7 @@ const deleteTask = (id) => {
       @resetFormTask="resetFormTask"
       @editTask="editTask"
       @deleteTask="deleteTask"
+      @toggleTaskStatus="toggleTaskStatus"
     ></Sidebar>
     <Body
       :formTask="formTask"

@@ -4,7 +4,7 @@ const props = defineProps({
   currentTaskId: Number,
 })
 
-defineEmits(['resetFormTask', 'editTask', 'deleteTask'])
+defineEmits(['resetFormTask', 'editTask', 'deleteTask', 'toggleTaskStatus'])
 </script>
 
 <template>
@@ -30,6 +30,23 @@ defineEmits(['resetFormTask', 'editTask', 'deleteTask'])
         "
       >
         {{ task.name }}
+      </div>
+      <div class="flex-none">
+        <button
+          class="px-2 py-1 rounded-md"
+          @click="$emit('toggleTaskStatus', task)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-4 h-4 text-green-400 hover:text-green-600"
+          >
+            <path
+              d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"
+            />
+          </svg>
+        </button>
       </div>
       <div class="flex-none">
         <button

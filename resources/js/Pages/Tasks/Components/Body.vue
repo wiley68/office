@@ -41,6 +41,7 @@ defineEmits(['submitTask', 'resetFormTask'])
         <div class="flex flex-none items-center h-8 mt-1 gap-2">
           <button
             type="submit"
+            :disabled="formTask.processing"
             class="flex justify-center items-center px-2 py-1 bg-gray-100 hover:bg-gray-200 border border-gray-200 hover:border-gray-300 rounded-md"
           >
             {{ isEditing ? 'Update Task' : 'Create Task' }}
