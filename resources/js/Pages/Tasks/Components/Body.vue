@@ -2,37 +2,41 @@
 import StatusToggle from '@/Components/StatusToggle.vue'
 
 const props = defineProps({
-  form: Object,
+  formTask: Object,
   isEditing: Boolean,
 })
 
-defineEmits(['submit', 'resetForm'])
+defineEmits(['submitTask', 'resetFormTask'])
 </script>
 
 <template>
   <div class="flex w-2/3 h-auto p-2">
     <form
       class="flex flex-grow h-full gap-1"
-      @submit.prevent="$emit('submit')"
+      @submit.prevent="$emit('submitTask')"
     >
       <div class="flex flex-col h-full w-2/3 gap-1">
         <input
-          v-model="form.name"
+          v-model="formTask.name"
           placeholder="Task name"
           class="flex items-center flex-none bg-gray-50 border border-gray-200 rounded font-bold"
-          :class="form.status ? 'line-through text-gray-400' : 'text-gray-900'"
+          :class="
+            formTask.status ? 'line-through text-gray-400' : 'text-gray-900'
+          "
         />
         <div
-          v-if="form.errors.name"
+          v-if="formTask.errors.name"
           class="text-red-600"
         >
-          {{ form.errors.name }}
+          {{ formTask.errors.name }}
         </div>
         <textarea
-          v-model="form.value"
+          v-model="formTask.value"
           placeholder="Task value"
           class="flex flex-grow bg-gray-50 border border-gray-200 rounded"
-          :class="form.status ? 'line-through text-gray-400' : 'text-gray-900'"
+          :class="
+            formTask.status ? 'line-through text-gray-400' : 'text-gray-900'
+          "
         ></textarea>
         <div class="flex flex-none items-center h-8 mt-1 gap-2">
           <button
@@ -44,7 +48,7 @@ defineEmits(['submit', 'resetForm'])
           <button
             v-if="isEditing"
             class="flex justify-center items-center px-2 py-1 hover:bg-gray-100 hover:border-gray-200 border rounded-md"
-            @click="$emit('resetForm')"
+            @click="$emit('resetFormTask')"
           >
             Cancel
           </button>
@@ -54,12 +58,12 @@ defineEmits(['submit', 'resetForm'])
         <div
           class="flex flex-col flex-grow w-full border border-gray-200 rounded p-2"
         >
-          <StatusToggle v-model="form.status" />
+          <StatusToggle v-model="formTask.status" />
           <div
-            v-if="form.errors.status"
+            v-if="formTask.errors.status"
             class="text-red-600"
           >
-            {{ form.errors.status }}
+            {{ formTask.errors.status }}
           </div>
         </div>
         <div class="flex flex-none items-center h-8 mt-1 gap-2"></div>

@@ -14,15 +14,15 @@ const { notify } = useNotification()
 const isEditing = ref(false)
 const currentTaskId = ref(null)
 
-const form = useForm({
+const formTask = useForm({
   name: '',
   value: '',
   status: 0,
 })
 
-const submit = () => {
+const submitTask = () => {
   if (isEditing.value) {
-    form.put(`/tasks/${currentTaskId.value}`, {
+    formTask.put(`/tasks/${currentTaskId.value}`, {
       onSuccess: () => {
         notify({
           title: 'Съобщение',
@@ -32,7 +32,7 @@ const submit = () => {
       },
     })
   } else {
-    form.post('/tasks', {
+    formTask.post('/tasks', {
       onSuccess: () => {
         notify({
           title: 'Съобщение',
@@ -45,25 +45,25 @@ const submit = () => {
 }
 
 const editTask = (task) => {
-  form.name = task.name
-  form.value = task.value
-  form.status = task.status ? 1 : 0
+  formTask.name = task.name
+  formTask.value = task.value
+  formTask.status = task.status ? 1 : 0
   currentTaskId.value = task.id
   isEditing.value = true
 }
 
-const resetForm = () => {
-  form.name = ''
-  form.value = ''
-  form.status = 0
+const resetFormTask = () => {
+  formTask.name = ''
+  formTask.value = ''
+  formTask.status = 0
   currentTaskId.value = null
   isEditing.value = false
 }
 
 const deleteTask = (id) => {
   if (confirm('Are you sure you want to delete this task?')) {
-    resetForm()
-    form.delete(`/tasks/${id}`)
+    resetFormTask()
+    formTask.delete(`/tasks/${id}`)
   }
 }
 </script>
@@ -73,15 +73,15 @@ const deleteTask = (id) => {
     <Sidebar
       :tasks="tasks"
       :currentTaskId="currentTaskId"
-      @resetForm="resetForm"
+      @resetFormTask="resetFormTask"
       @editTask="editTask"
       @deleteTask="deleteTask"
     ></Sidebar>
     <Body
-      :form="form"
+      :formTask="formTask"
       :isEditing="isEditing"
-      @submit.prevent="submit"
-      @resetForm="resetForm"
+      @submitTask="submitTask"
+      @resetFormTask="resetFormTask"
     ></Body>
   </AppLayout>
 </template>

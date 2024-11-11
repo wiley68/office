@@ -4,7 +4,7 @@ const props = defineProps({
   currentTaskId: Number,
 })
 
-defineEmits(['resetForm', 'editTask', 'deleteTask'])
+defineEmits(['resetFormTask', 'editTask', 'deleteTask'])
 </script>
 
 <template>
@@ -25,7 +25,7 @@ defineEmits(['resetForm', 'editTask', 'deleteTask'])
         :class="task.status ? 'line-through text-gray-400' : 'text-gray-900'"
         @click="
           currentTaskId === task.id
-            ? $emit('resetForm')
+            ? $emit('resetFormTask')
             : $emit('editTask', task)
         "
       >
