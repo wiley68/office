@@ -14,7 +14,7 @@ const currentTaskId = ref(null)
 const form = useForm({
   name: '',
   value: '',
-  status: false,
+  status: 0,
 })
 
 const submit = () => {
@@ -75,10 +75,7 @@ const deleteTask = (id) => {
           {{ task.name }}
         </div>
         <div class="flex-none">
-          <button
-            class="px-2 py-1 rounded-md"
-            @click="deleteTask(task.id)"
-          >
+          <button class="px-2 py-1 rounded-md" @click="deleteTask(task.id)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -94,10 +91,7 @@ const deleteTask = (id) => {
       </div>
     </div>
     <div class="flex w-2/3 h-auto p-2">
-      <form
-        class="flex flex-grow h-full gap-1"
-        @submit.prevent="submit"
-      >
+      <form class="flex flex-grow h-full gap-1" @submit.prevent="submit">
         <div class="flex flex-col h-full w-2/3 gap-1">
           <input
             v-model="form.name"
