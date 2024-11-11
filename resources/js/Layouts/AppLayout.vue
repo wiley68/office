@@ -21,5 +21,6 @@ defineProps({
       </div>
       <Footer></Footer>
     </div>
+    <notifications position="top center" />
   </div>
 </template>

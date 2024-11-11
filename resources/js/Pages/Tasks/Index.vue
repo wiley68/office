@@ -3,11 +3,13 @@ import { useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import StatusToggle from '@/Components/StatusToggle.vue'
+import { useNotification } from '@kyvg/vue3-notification'
 
 const props = defineProps({
   tasks: Array,
 })
 
+const { notify } = useNotification()
 const isEditing = ref(false)
 const currentTaskId = ref(null)
 
@@ -20,11 +22,23 @@ const form = useForm({
 const submit = () => {
   if (isEditing.value) {
     form.put(`/tasks/${currentTaskId.value}`, {
-      // onSuccess: () => resetForm(),
+      onSuccess: () => {
+        notify({
+          title: 'Съобщение',
+          text: 'Успешно записахте промените!',
+          type: 'success',
+        })
+      },
     })
   } else {
     form.post('/tasks', {
-      // onSuccess: () => resetForm(),
+      onSuccess: () => {
+        notify({
+          title: 'Съобщение',
+          text: 'Успешно създадохте записа!',
+          type: 'success',
+        })
+      },
     })
   }
 }
@@ -38,7 +52,9 @@ const editTask = (task) => {
 }
 
 const resetForm = () => {
-  form.reset()
+  form.name = ''
+  form.value = ''
+  form.status = 0
   currentTaskId.value = null
   isEditing.value = false
 }
@@ -101,6 +117,9 @@ const deleteTask = (id) => {
               form.status ? 'line-through text-gray-400' : 'text-gray-900'
             "
           />
+          <div v-if="form.errors.name" class="text-red-600">
+            {{ form.errors.name }}
+          </div>
           <textarea
             v-model="form.value"
             placeholder="Task value"
@@ -130,6 +149,9 @@ const deleteTask = (id) => {
             class="flex flex-col flex-grow w-full border border-gray-200 rounded p-2"
           >
             <StatusToggle v-model="form.status" />
+            <div v-if="form.errors.status" class="text-red-600">
+              {{ form.errors.status }}
+            </div>
           </div>
           <div class="flex flex-none items-center h-8 mt-1 gap-2"></div>
         </div>

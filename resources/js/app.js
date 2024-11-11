@@ -5,6 +5,7 @@ import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy'
+import Notifications from '@kyvg/vue3-notification'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Maxtrade Office'
 
@@ -19,6 +20,7 @@ createInertiaApp({
     return createApp({ render: () => h(App, props) })
       .use(plugin)
       .use(ZiggyVue)
+      .use(Notifications)
       .mount(el)
   },
   progress: {
