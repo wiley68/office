@@ -3,8 +3,8 @@ import { useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import { useNotification } from '@kyvg/vue3-notification'
-import Sidebar from './Partials/Sidebar.vue'
-import Body from './Partials/Body.vue'
+import Sidebar from './Components/Sidebar.vue'
+import Body from './Components/Body.vue'
 
 const props = defineProps({
   tasks: Array,
