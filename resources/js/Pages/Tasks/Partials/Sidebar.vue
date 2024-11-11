@@ -9,38 +9,45 @@ defineEmits(['resetForm', 'editTask', 'deleteTask'])
 
 <template>
   <div
-    v-for="task in tasks"
-    :key="task.id"
-    class="flex items-center w-full border border-gray-200 p-2 cursor-pointer select-none hover:bg-gray-200 hover:border-gray-300"
-    :class="
-      currentTaskId === task.id ? 'bg-gray-200 border-gray-300' : 'bg-gray-50'
-    "
+    class="flex flex-col w-1/3 gap-1 p-2 mx-2 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-300"
+    style="height: calc(100vh - 5rem)"
   >
     <div
-      class="flex items-center flex-grow font-medium"
-      :class="task.status ? 'line-through text-gray-400' : 'text-gray-900'"
-      @click="
-        currentTaskId === task.id ? $emit('resetForm') : $emit('editTask', task)
+      v-for="task in tasks"
+      :key="task.id"
+      class="flex items-center w-full border border-gray-200 p-2 cursor-pointer select-none hover:bg-gray-200 hover:border-gray-300"
+      :class="
+        currentTaskId === task.id ? 'bg-gray-200 border-gray-300' : 'bg-gray-50'
       "
     >
-      {{ task.name }}
-    </div>
-    <div class="flex-none">
-      <button
-        class="px-2 py-1 rounded-md"
-        @click="$emit('deleteTask', task.id)"
+      <div
+        class="flex items-center flex-grow font-medium"
+        :class="task.status ? 'line-through text-gray-400' : 'text-gray-900'"
+        @click="
+          currentTaskId === task.id
+            ? $emit('resetForm')
+            : $emit('editTask', task)
+        "
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          class="w-4 h-4 text-red-400 hover:text-red-600"
+        {{ task.name }}
+      </div>
+      <div class="flex-none">
+        <button
+          class="px-2 py-1 rounded-md"
+          @click="$emit('deleteTask', task.id)"
         >
-          <path
-            d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
-          />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-4 h-4 text-red-400 hover:text-red-600"
+          >
+            <path
+              d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 </template>
