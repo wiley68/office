@@ -24,10 +24,7 @@ defineEmits(['submitTask', 'resetFormTask'])
             formTask.status ? 'line-through text-gray-400' : 'text-gray-900'
           "
         />
-        <div
-          v-if="formTask.errors.name"
-          class="text-red-600"
-        >
+        <div v-if="formTask.errors.name" class="text-red-600">
           {{ formTask.errors.name }}
         </div>
         <textarea
@@ -60,10 +57,7 @@ defineEmits(['submitTask', 'resetFormTask'])
           class="flex flex-col flex-grow w-full border border-gray-200 rounded p-2"
         >
           <StatusToggle v-model="formTask.status" />
-          <div
-            v-if="formTask.errors.status"
-            class="text-red-600"
-          >
+          <div v-if="formTask.errors.status" class="text-red-600">
             {{ formTask.errors.status }}
           </div>
         </div>

@@ -2,6 +2,11 @@
 import { Link, router } from '@inertiajs/vue3'
 import ApplicationMark from '@/Components/ApplicationMark.vue'
 import NavLink from '@/Components/NavLink.vue'
+import { ref } from 'vue'
+import StatusToggle from '@/Components/StatusToggle.vue'
+
+const search = ref('')
+const status = ref(false)
 
 const logout = () => {
   router.post(route('logout'))
@@ -28,6 +33,15 @@ const logout = () => {
       >
         Tasks
       </NavLink>
+      <div v-if="route().current('tasks.index')" class="flex gap-2">
+        <div class="w-1 h-full border-r border-gray-700 mr-1"></div>
+        <input
+          v-model="search"
+          placeholder="Search tasks..."
+          class="flex items-center flex-none bg-gray-50 border border-gray-200 rounded font-medium"
+        />
+        <StatusToggle v-model="status" />
+      </div>
     </div>
     <div class="flex gap-2">
       <NavLink
