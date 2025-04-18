@@ -8,16 +8,27 @@ use Inertia\Inertia;
 
 class TaskController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::all();
+        $validated = $request->validate([
+            'status' => 'sometimes|integer|in:0,1',
+        ]);
+
+        if (isset($validated['status'])) {
+            $status = (int)$validated['status'];
+        } else {
+            $status = 0;
+        }
+        $tasks = Task::where('status', $status)->get();
+
         foreach ($tasks as &$task) {
             if (isset($task['value'])) {
                 $task['value'] = base64_decode($task['value']);
             }
         }
         return Inertia::render('Tasks/Index', [
-            'tasks' => $tasks
+            'tasks' => $tasks,
+            'status' => $status,
         ]);
     }
 
