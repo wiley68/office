@@ -6,6 +6,7 @@ import Footer from "./Partials/Footer.vue";
 const props = defineProps({
     title: String,
     status: Number,
+    search: String,
 });
 </script>
 
@@ -14,7 +15,7 @@ const props = defineProps({
         <Head :title="title"></Head>
 
         <div class="flex flex-col h-screen overflow-hidden">
-            <Header :status="props.status"></Header>
+            <Header :status="props.status" :search="props.search"></Header>
             <div
                 class="flex justify-center gap-2 pt-2 bg-white w-full flex-grow select-none text-gray-900"
             >

@@ -12,14 +12,21 @@ class TaskController extends Controller
     {
         $validated = $request->validate([
             'status' => 'sometimes|integer|in:0,1',
+            'search' => 'sometimes|string|max:256',
         ]);
 
-        if (isset($validated['status'])) {
-            $status = (int)$validated['status'];
-        } else {
-            $status = 0;
-        }
-        $tasks = Task::where('status', $status)->get();
+        $search = trim($validated['search'] ?? '');
+        $status = (int)($validated['status'] ?? 0);
+
+        $tasks = Task::query()
+            ->where('status', $status)
+            ->when($search !== '', function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                        ->orWhereRaw("LOWER(FROM_BASE64(`value`)) LIKE ?", ["%" . strtolower($search) . "%"]);
+                });
+            })
+            ->get();
 
         foreach ($tasks as &$task) {
             if (isset($task['value'])) {
@@ -29,6 +36,7 @@ class TaskController extends Controller
         return Inertia::render('Tasks/Index', [
             'tasks' => $tasks,
             'status' => $status,
+            'search' => $search,
         ]);
     }
 

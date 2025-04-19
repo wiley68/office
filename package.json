@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "@kyvg/vue3-notification": "^3.4.1",
+        "lodash": "^4.17.21",
         "tailwind-scrollbar": "^3.1.0"
     }
 }

@@ -4,24 +4,42 @@ import ApplicationMark from "@/Components/ApplicationMark.vue";
 import NavLink from "@/Components/NavLink.vue";
 import { ref, watch } from "vue";
 import StatusToggle from "@/Components/StatusToggle.vue";
+import { debounce } from "lodash";
 
 const props = defineProps({
     status: Number,
+    search: String,
 });
 
-const search = ref("");
+const search = ref(props.search || "");
 const status = ref(props.status);
 
 const logout = () => {
     router.post(route("logout"));
 };
 
-watch(status, (newValue) => {
-    router.get(route("tasks.index"), {
-        search: search.value,
-        status: newValue,
+const updateTasks = () => {
+    const params = {
+        status: status.value,
+    };
+
+    if (search.value.trim() !== "") {
+        params.search = search.value;
+    }
+
+    router.get(route("tasks.index"), params, {
+        preserveState: true,
+        replace: true,
     });
-});
+};
+
+const clearSearch = () => {
+    search.value = "";
+    updateTasks();
+};
+
+watch(status, updateTasks);
+watch(search, debounce(updateTasks, 500));
 </script>
 
 <template>
@@ -51,6 +69,14 @@ watch(status, (newValue) => {
                     placeholder="Search tasks..."
                     class="flex items-center flex-none bg-gray-50 border border-gray-200 rounded font-medium"
                 />
+                <button
+                    v-if="search"
+                    @click="clearSearch"
+                    class="text-gray-300 hover:text-gray-100 text-sm"
+                    title="Clear search"
+                >
+                    ✕
+                </button>
                 <StatusToggle v-model="status" />
             </div>
         </div>
